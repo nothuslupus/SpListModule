@@ -60,12 +60,10 @@
         )
 
         PSData = @{
-            # A URL to the license for this module.
             LicenseUri = 'https://mit-license.org/'
     
-            # A URL to the main website for this project.
             ProjectUri = 'https://github.com/nothuslupus/SpListModule'
     
-        } # End of PSData hashtable
+        }
     }  
 }

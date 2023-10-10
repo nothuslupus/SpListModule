@@ -1,8 +1,3 @@
-<# 
-    I'm kind of mad that I used proper verb-noun naming for Initialize-ModuleData.
-    I need to pick a convention and stick with it.
-    Also, it's doing more of a "Get" than an "Initialize".
-#>
 function Initialize-ModuleData {
     $dataFile = (Import-PowerShellDataFile -Path $PSScriptRoot'\SPModule.psd1').PrivateData
     #New-Variable -Scope Script -Name 'privateData' -Value $dataFile #-Option ReadOnly
@@ -10,7 +5,7 @@ function Initialize-ModuleData {
 }
 
 # connectSharePoint builds a connection to a SharePoint site and imports the module functions
-function connectSharePoint {
+function Connect-SharePoint {
         [CmdletBinding()]
     param (
         [Parameter(Mandatory)][string]$SiteUrl,
@@ -90,7 +85,8 @@ function connectSharePoint {
     . $PSScriptRoot'\SPModuleFunctions.ps1' @importParams
 }
 
-function disconnectSharePoint {
+# disconnectSharePoint removes the imported module functions. It could do a lot more.
+function Disconnect-SharePoint {
     [CmdletBinding()]
     param (
         [Parameter()][switch]$ShowFunctions
