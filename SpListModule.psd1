@@ -46,7 +46,7 @@
             "Modified"
         )
 
-        ImportedSPModuleFunctions = @(
+        ImportedSpListModuleFunctions = @(
             'Invoke-SharePointApi'
             'Convert-SharePointProperties'
             'Get-SharePointAllLists'

@@ -1,5 +1,5 @@
 function Initialize-ModuleData {
-    $dataFile = (Import-PowerShellDataFile -Path $PSScriptRoot'\SPModule.psd1').PrivateData
+    $dataFile = (Import-PowerShellDataFile -Path $PSScriptRoot'\SpListModule.psd1').PrivateData
     #New-Variable -Scope Script -Name 'privateData' -Value $dataFile #-Option ReadOnly
     return $dataFile
 }
@@ -82,7 +82,7 @@ function Connect-SharePoint {
     }
 
     # Import the module functions
-    . $PSScriptRoot'\SPModuleFunctions.ps1' @importParams
+    . $PSScriptRoot'\SpListModuleFunctions.ps1' @importParams
 }
 
 # disconnectSharePoint removes the imported module functions. It could do a lot more.
@@ -92,7 +92,7 @@ function Disconnect-SharePoint {
         [Parameter()][switch]$ShowFunctions
     )
 
-    $importedFunctions = $Script:privateData.ImportedSPModuleFunctions
+    $importedFunctions = $Script:privateData.ImportedSpListModuleFunctions
 
     foreach ($function in $importedFunctions) {
         $functionPath = "function:$function"
