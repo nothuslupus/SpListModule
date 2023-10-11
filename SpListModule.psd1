@@ -17,7 +17,7 @@
     
     PowerShellVersion = '7.0'
     
-    FunctionsToExport = 'connectSharePoint','disconnectSharePoint'
+    FunctionsToExport = 'Connect-SharePoint','Disconnect-SharePoint'
     
     PrivateData = @{
         Api = @{
