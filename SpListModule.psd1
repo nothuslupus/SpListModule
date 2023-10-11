@@ -9,7 +9,7 @@
 @{
     RootModule = 'SpListModule.psm1'
     
-    ModuleVersion = '0.1.0'
+    ModuleVersion = '0.1.3'
     
     GUID = '98f81d37-f381-4f25-9552-c0141a7cd444'
     
@@ -60,7 +60,7 @@
         )
 
         PSData = @{
-            LicenseUri = 'https://mit-license.org/'
+            LicenseUri = 'https://github.com/nothuslupus/SpListModule/blob/main/LICENSE'
     
             ProjectUri = 'https://github.com/nothuslupus/SpListModule'
     

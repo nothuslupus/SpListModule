@@ -6,10 +6,16 @@
 
 [CmdletBinding()]
 param (
-    [Parameter(Mandatory)]$Api,
-    [Parameter(Mandatory)]$DefaultProperties, 
-    [Parameter(Mandatory)]$SessionObj,
-    [Parameter()][switch]$UseDefaultCredentials
+    [Parameter(Mandatory)]
+    [hashtable]$Api,
+    
+    [Parameter(Mandatory)]
+    [string[]] $DefaultProperties, 
+    
+    [Parameter(Mandatory)]
+    [pscustomobject]$SessionObj,
+    
+    [switch]$UseDefaultCredentials
 )
 
 # Set the received parameters to $Script:variables>
@@ -21,9 +27,15 @@ $Script:useDefaultCredentials = $UseDefaultCredentials  # This is a switch that 
 # Invoke-SharePointApi packages the Invoke-RestMethod and Invoke-WebRequest cmdlets
 function Script:Invoke-SharePointApi {
     param(
-        [Parameter(Mandatory)][string]$ApiPath,
-        [Parameter(Mandatory)][string]$Method,
+        [Parameter(Mandatory)]
+        [string]$ApiPath,
+        
+        [Parameter(Mandatory)]
+        [ValidateSet('Get','Post','Patch','Delete')]
+        [string]$Method,
+        
         [switch]$VerboseMode,
+        
         [switch]$RequestDigest
     )
 
@@ -89,8 +101,7 @@ function Script:Invoke-SharePointApi {
     }
     catch {
         Write-Host "`r`nError while invoking SharePoint API:" -ForegroundColor Red -NoNewline
-        Write-Host $_.Exception.Message -ForegroundColor Red
-        exit
+        throw $_.Exception.Message
     }
 }
 

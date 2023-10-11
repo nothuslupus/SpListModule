@@ -1,16 +1,19 @@
 function Initialize-ModuleData {
     $dataFile = (Import-PowerShellDataFile -Path $PSScriptRoot'\SpListModule.psd1').PrivateData
-    #New-Variable -Scope Script -Name 'privateData' -Value $dataFile #-Option ReadOnly
     return $dataFile
 }
 
-# connectSharePoint builds a connection to a SharePoint site and imports the module functions
+# Connect-SharePoint builds a connection to a SharePoint site and imports the module functions
 function Connect-SharePoint {
         [CmdletBinding()]
     param (
-        [Parameter(Mandatory)][string]$SiteUrl,
-        [Parameter(Mandatory)][string]$ListTitle,
-        [Parameter()][switch]$UseDefaultCredentials
+        [Parameter(Mandatory)]
+        [string]$SiteUrl,
+        
+        [Parameter(Mandatory)]
+        [string]$ListTitle,
+        
+        [switch]$UseDefaultCredentials
     )
     
     $Script:privateData = Initialize-ModuleData
@@ -55,9 +58,7 @@ function Connect-SharePoint {
             Write-Host "`r`nConnection to $SiteUrl successful" -ForegroundColor Green
         }
         else {
-            # This section should probably be a throw
-            Write-Host "`r`nConnection to $SiteUrl failed" -ForegroundColor Red
-            exit
+            throw "Connection to $SiteUrl failed"
         }
 
         # Store the session and other necessary info
@@ -69,8 +70,7 @@ function Connect-SharePoint {
         }
     }
     catch {
-        Write-Host "`r`nConnection to $SiteUrl failed" -ForegroundColor Red
-        exit
+        throw "Connection to $SiteUrl failed"
     }
 
     # Since we passed the connection test, we can import the module functions
@@ -85,11 +85,11 @@ function Connect-SharePoint {
     . $PSScriptRoot'\SpListModuleFunctions.ps1' @importParams
 }
 
-# disconnectSharePoint removes the imported module functions. It could do a lot more.
+# Disconnect-SharePoint removes the imported module functions. It could do a lot more.
 function Disconnect-SharePoint {
     [CmdletBinding()]
     param (
-        [Parameter()][switch]$ShowFunctions
+        [switch]$ShowFunctions
     )
 
     $importedFunctions = $Script:privateData.ImportedSpListModuleFunctions
@@ -108,4 +108,5 @@ function Disconnect-SharePoint {
         }
     }
     Write-Host "`r`nDisconnected from $($Script:sessionObj.siteurl)`r`n" -ForegroundColor DarkYellow
+    Remove-Variable -Name 'sessionObj' -Scope Script -Force
 }

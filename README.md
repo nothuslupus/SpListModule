@@ -3,7 +3,7 @@
 SpListModule reinvents the wheel. Partly. :-/ SpListModule simplifies managing on-prem SharePoint lists.
 
 ![Status](https://img.shields.io/badge/status-alpha-red.svg)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://mit-license.org/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/nothuslupus/SpListModule/blob/main/LICENSE)
 
 ## Features
 
